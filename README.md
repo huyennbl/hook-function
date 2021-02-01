@@ -1,20 +1,31 @@
 # function-hook
 
-A small utils for adding before and after hook to another function
+A small utils for adding before and after hook to another function, no extra dependencies
 
 ## Installation
+
+```
+// with npm
+npm install hook-function
+
+// or with yarn
+yarn add hook-function
+```
 
 ## Example
 
 ```js
-const { hook } = require('./index');
+const { hook } = require('hook-function');
 const { before, after } = hook;
+
 function first() {
   console.log('1st');
 }
+
 function second() {
   console.log('2nd');
 }
+
 function main(number) {
   console.log(number);
 }
@@ -23,7 +34,8 @@ let mainWithBeforeHook = before(main, first);
 mainWithBeforeHook(42);
 // 1st
 // 42
-main();
+
+main(); // main function in untouched
 // 42
 
 let mainWith2BeforeHooks = before(main, first, second);

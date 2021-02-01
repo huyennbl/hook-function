@@ -1,7 +1,7 @@
 /**
  *
  * @param {Function} mainFn The main function the will be hooked with a function after
- * @param {Function[]} afterFn List of functions that will run after mainFn, from left to right
+ * @param {Function[]} afterFunctions List of functions that will run after mainFn, from left to right
  * @returns {Function} Returns new function that have same function signature as mainFn, and will have afterFn called after the mainFn
  */
 function after(mainFn, ...afterFunctions) {

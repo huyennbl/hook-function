@@ -35,7 +35,7 @@ mainWithBeforeHook(42);
 // 1st
 // 42
 
-main(); // main function in untouched
+main(42); // main function in untouched
 // 42
 
 let mainWith2BeforeHooks = before(main, first, second);

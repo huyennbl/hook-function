@@ -1,0 +1,24 @@
+{
+  "name": "hook-function",
+  "version": "1.0.0",
+  "description": "utils for adding before and after hook to another function",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/huyennbl/hook-function.git"
+  },
+  "keywords": [
+    "hook",
+    "hooks",
+    "before",
+    "after",
+    "wrapper",
+    "function"
+  ],
+  "author": "huyennbl",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/huyennbl/hook-function/issues"
+  },
+  "homepage": "https://github.com/huyennbl/hook-function#readme"
+}

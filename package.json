@@ -2,10 +2,13 @@
   "name": "hook-function",
   "version": "1.0.2",
   "description": "utils for adding before and after hook to another function",
-  "main": "index.js",
+  "main": "dist/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/huyennbl/hook-function.git"
+  },
+  "scripts": {
+    "build": "parcel build index.js"
   },
   "keywords": [
     "hook",
@@ -13,12 +16,20 @@
     "before",
     "after",
     "wrapper",
-    "function"
+    "function",
+    "sequentially",
+    "inject"
   ],
   "author": "huyennbl",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/huyennbl/hook-function/issues"
   },
-  "homepage": "https://github.com/huyennbl/hook-function#readme"
+  "files": [
+    "dist"
+  ],
+  "homepage": "https://github.com/huyennbl/hook-function#readme",
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4"
+  }
 }

@@ -14,10 +14,9 @@ yarn add hook-function
 
 ## Example
 
-```js
-const { hook } = require('hook-function');
-const { before, after } = hook;
+### Sample functions
 
+```js
 function first() {
   console.log('1st');
 }
@@ -26,32 +25,70 @@ function second() {
   console.log('2nd');
 }
 
-function main(number) {
-  console.log(number);
+function main() {
+  console.log('main');
 }
 
-let mainWithBeforeHook = before(main, first);
-mainWithBeforeHook(42);
-// 1st
-// 42
+const makeDelayFn = (ms) =>
+  function delayed() {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(console.log(`wait ${ms}ms`));
+      }, ms);
+    });
+  };
 
-main(42); // main function in untouched
-// 42
+function instant() {
+  console.log('instant');
+}
+```
+
+### `hook.before` & `hook.after`
+
+```js
+const { hook } = require('hook-function');
+const { before, after } = hook;
 
 let mainWith2BeforeHooks = before(main, first, second);
-mainWith2BeforeHooks(42);
+mainWith2BeforeHooks();
 // 1st
 // 2nd
-// 42
-
-let mainWithAfterHook = after(main, first);
-mainWithAfterHook(42);
-// 42
-// 1st
+// main
 
 let mainWith2AfterHooks = after(main, first, second);
-mainWith2AfterHooks(42);
-// 42
+mainWith2AfterHooks(main);
+// main
 // 1st
 // 2nd
+```
+
+### `hook.beforeSequentially` & `hook.afterSequentially`
+
+```js
+const { hook } = require('hook-function');
+const { after, afterSequentially } = hook;
+
+let sequentialHookFn = hook.afterSequentially(
+  main,
+  makeDelayFn(300),
+  instant,
+  makeDelayFn(100)
+);
+sequentialHookFn();
+//main
+//wait 300ms
+//instant
+//wait 100ms
+
+let normalHookFn = hook.after(
+  main,
+  makeDelayFn(300),
+  instant,
+  makeDelayFn(100)
+);
+normalHookFn();
+//main
+//instant
+//wait 100ms
+//wait 300ms
 ```

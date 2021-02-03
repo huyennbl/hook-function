@@ -68,6 +68,7 @@ mainWith2AfterHooks(main);
 const { hook } = require('hook-function');
 const { after, afterSequentially } = hook;
 
+// beforeSequentially is similar
 let sequentialHookFn = hook.afterSequentially(
   main,
   makeDelayFn(300),
@@ -75,10 +76,10 @@ let sequentialHookFn = hook.afterSequentially(
   makeDelayFn(100)
 );
 sequentialHookFn();
-//main
-//wait 300ms
-//instant
-//wait 100ms
+// main
+// wait 300ms
+// instant
+// wait 100ms
 
 let normalHookFn = hook.after(
   main,
@@ -87,8 +88,8 @@ let normalHookFn = hook.after(
   makeDelayFn(100)
 );
 normalHookFn();
-//main
-//instant
-//wait 100ms
-//wait 300ms
+// main
+// instant
+// wait 100ms
+// wait 300ms
 ```

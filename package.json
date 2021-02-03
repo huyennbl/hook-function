@@ -1,6 +1,6 @@
 {
   "name": "hook-function",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "utils for adding before and after hook to another function",
   "main": "dist/index.js",
   "repository": {

@@ -1,4 +1,4 @@
-# function-hook
+# hook-function
 
 A small utils for adding before and after hook to another function, no extra dependencies
 

@@ -69,7 +69,7 @@ const { hook } = require('hook-function');
 const { after, afterSequentially } = hook;
 
 // beforeSequentially is similar
-let sequentialHookFn = hook.afterSequentially(
+let sequentialHookFn = afterSequentially(
   main,
   makeDelayFn(300),
   instant,
@@ -81,15 +81,52 @@ sequentialHookFn();
 // instant
 // wait 100ms
 
-let normalHookFn = hook.after(
-  main,
-  makeDelayFn(300),
-  instant,
-  makeDelayFn(100)
-);
+let normalHookFn = after(main, makeDelayFn(300), instant, makeDelayFn(100));
 normalHookFn();
 // main
 // instant
 // wait 100ms
 // wait 300ms
+```
+
+### `hook.after` using data returned by main function
+
+> Data return by main function are **_not_** chained in after-functions. Same data will be applied to each after-functions.
+
+> If after-functions are regular functions instead of arrow functions, the hook calls the regular functions directly.
+
+```js
+const { hook } = require('hook-function');
+const { after } = hook;
+
+function printInput(input) {
+  console.log(input || 'nothing')
+}
+
+function returnTen() {
+  return 10;
+}
+
+function printDouble(num) {
+  console.log(num * 2);
+}
+}
+
+function printTriple(num) {
+  console.log(num * 3);
+}
+
+let fn = after(
+  returnTen,
+  (result) => printDouble(result),
+  (result) => printTriple(result),
+  printInput,
+  (result) => printInput(result)
+);
+
+fn();
+// 20
+// 30
+// nothing
+// 10
 ```

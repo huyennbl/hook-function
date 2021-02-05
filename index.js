@@ -6,8 +6,8 @@
  */
 function after(mainFn, ...afterFunctions) {
   return function (...args) {
-    Promise.resolve(mainFn(...args)).then(function () {
-      asyncInvoke(afterFunctions);
+    Promise.resolve(mainFn(...args)).then(function (mainFnOutput) {
+      asyncInvoke(afterFunctions, mainFnOutput);
     });
   };
 }
@@ -52,9 +52,30 @@ function beforeSequentially(mainFn, ...beforeFunctions) {
   };
 }
 
-function asyncInvoke(functions) {
+function isArrowFn(fn) {
+  // How does it work?
+  //   ^ - start at the beginning of the line
+  //   [ ^{ ]+? - Look through everything that follows until the next pattern (=>), but if you find a { first, it's not a match
+  //   => - Found => before {, so it's a match
+  // https://stackoverflow.com/a/57682075
+  return typeof fn === 'function' && /^[^{]+?=>/.test(fn.toString());
+}
+
+function asyncInvoke(functions, callbackObject) {
   for (let i = 0; i < functions.length; i++) {
-    functions[i]();
+    selectiveInvoke(fn, callbackObject);
+  }
+}
+
+function selectiveInvoke(fn, callbackObject) {
+  if (isArrowFn(fn)) {
+    if (typeof callbackObject === 'object') {
+      fn({ ...callbackObject });
+    } else {
+      fn(callbackObject);
+    }
+  } else {
+    fn();
   }
 }
 
